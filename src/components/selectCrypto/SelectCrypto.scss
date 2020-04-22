@@ -1,0 +1,16 @@
+.SelectCrypto{
+    grid-column: center-start/center-end;
+    padding: 5rem;
+    
+   & input{
+      width: 30vw;
+       min-width: 300px;
+       padding: 1rem;
+       border-radius: 3px;
+       outline: none;
+   }
+}
+.item{
+    padding: 3px 0;
+    cursor: pointer;
+}
