@@ -4,17 +4,20 @@
   box-sizing: border-box;
 }
 
-
 @font-face {
-  font-family: 'Vazir';
-       src:  url('./assets/fonts/Vazir-Light-FD-WOL.woff') format('woff');
+  font-family: "Vazir";
+  src: url("./assets/fonts/Vazir-Light-WOL.woff") format("woff");
 }
-html{
+html {
   font-size: 62.5%;
-  font-family: 'Vazir';
+  font-family: "Vazir";
+  width: 100%;
+  min-height: 100vh;
+  background-color: #d90f15;
 }
 
-body::before,body::after{
+body::before,
+body::after {
   margin: 0;
   padding: 0;
 }

@@ -1,0 +1,91 @@
+@import "../../assets/sass/variabels.scss";
+.SingleCoin {
+  max-width: 100%;
+  min-height: 330px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.6rem;
+  padding: 2rem;
+  color: $color-white;
+  background-color: $color-primary;
+  margin: 5rem 0;
+  position: relative;
+  border-radius: 3px;
+  box-shadow: 5px 5px 20px 0px rgba(0, 0, 0, 0.5);
+
+  & > * {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  // &_rank{
+  //     order:5 ;
+  //     font-size: 2rem;
+  //     align-items: center;
+  // }
+  &_tradingview {
+    order: 10;
+    flex-basis: 55%;
+  }
+  &_trash {
+    background-color: $color-red;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    right: -12px;
+    bottom: -10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+}
+.price {
+  &_change {
+    direction: rtl;
+
+    &--num {
+      display: inline-flex;
+      flex-direction: row-reverse;
+      direction: ltr;
+      font-size: 2rem;
+      margin-right: 1rem;
+      font-weight: bold;
+    }
+  }
+}
+.trash_icon {
+  font-size: 12px;
+}
+
+//transition group
+// .sample-enter {
+//   opacity: 0;
+//   transition: all 200ms ease-in-out;
+// }
+
+// .sample-enter-active {
+//   opacity: 0.5;
+//   transition: all 200ms ease-in-out;
+// }
+// .sample-enter-done {
+//   opacity: 1;
+// }
+// .sample-exit {
+//   opacity: 1;
+
+//   transition: all 200ms ease-in-out;
+// }
+.sample-exit-active {
+  opacity: 0;
+  transform: scale(0.1);
+  transition: all 200ms ease-in-out;
+}
+.sample-exit-done {
+  opacity: 0;
+  transform: scale(0);
+  //   transition: all 100ms ease-in-out;
+}

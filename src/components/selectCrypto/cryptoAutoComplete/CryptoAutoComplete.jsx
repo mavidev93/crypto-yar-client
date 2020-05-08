@@ -14,22 +14,26 @@ function CryptoAutoComplete({ addCoin, searchCoins, coins }) {
         addCoin(coinId)
     }
     return (
-        <Autocomplete
-            getItemValue={(item) => item.name}
-            items={[...coins]}
-            renderItem={(item, isHighlighted) =>
-                <div
-                    style={{ background: isHighlighted ? 'lightgray' : 'white', fontSize: '1.4rem' }}
-                    key={item.id}
-                    className='item'
-                >
-                    <span>{item.name}</span>
-                </div>
-            }
-            value={value}
-            onChange={handleInputchange}
-            onSelect={handleSelect}
-        />
+        <div className="CryptoAutoComplete">
+
+            <Autocomplete
+
+                getItemValue={(item) => item.name}
+                items={[...coins]}
+                renderItem={(item, isHighlighted) =>
+                    <div
+                        style={{ background: isHighlighted ? 'lightgray' : 'white', fontSize: '1.4rem' }}
+                        key={item.id}
+                        className='item'
+                    >
+                        <span>{item.name}</span>
+                    </div>
+                }
+                value={value}
+                onChange={handleInputchange}
+                onSelect={handleSelect}
+            />
+        </div>
     )
 }
 export default CryptoAutoComplete;
