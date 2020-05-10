@@ -37,7 +37,7 @@ function SelectCrypto() {
     async function fetchData() {
       const data = (await axios.get("https://api.coinpaprika.com/v1/coins"))
         .data;
-      setCoins(data.slice(0, 20));
+      setCoins(data.slice(0, 50));
     }
     fetchData();
   }, []);

@@ -1,6 +1,18 @@
 .CryptoAutoComplete {
   position: relative;
   z-index: 10;
-  div {
+
+  input {
+    font-size: 16px;
   }
+  label {
+    // position: relative;
+    // top: 12px;
+    font-size: 12px;
+  }
+}
+.CryptoAutoComplete_listItem {
+  width: 100%;
+  font-size: 16px;
+  padding: 2px 0;
 }
