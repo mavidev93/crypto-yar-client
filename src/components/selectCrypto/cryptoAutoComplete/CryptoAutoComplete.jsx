@@ -7,12 +7,14 @@ function CryptoAutoComplete({ addCoin, searchCoins, coins }) {
   let [value, setValue] = useState("");
 
   const handleInputchange = (e) => {
+    e.preventDefault();
     console.log("input change");
     setValue(e.target.value);
     searchCoins(value);
   };
 
   const handleChange = (e, coin) => {
+    e.preventDefault();
     if (coin) {
       const id = coin.id;
       addCoin(id);
@@ -20,7 +22,7 @@ function CryptoAutoComplete({ addCoin, searchCoins, coins }) {
   };
 
   return (
-    <form className="CryptoAutoComplete">
+    <div className="CryptoAutoComplete">
       <Autocomplete
         noOptionsText="No labels"
         onChange={handleChange}
@@ -46,7 +48,7 @@ function CryptoAutoComplete({ addCoin, searchCoins, coins }) {
           />
         )}
       />
-    </form>
+    </div>
   );
 }
 export default CryptoAutoComplete;
