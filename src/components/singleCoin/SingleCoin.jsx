@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { customizePrice } from "../../helpers/customizePrice";
 import { CSSTransition } from "react-transition-group";
 import TradingViewWidget from "react-tradingview-widget";
@@ -20,36 +21,38 @@ function SingleCoin({ name, rank, symbol, quotes, id, removeCoin }) {
   };
   return (
     <CSSTransition in={toggle} timeout={1000} classNames="sample">
-      <div className="SingleCoin">
-        <div className="SingleCoin_name">
-          <p>{name}</p>
-          <span> رنک : {rank}</span>
-          <p>{symbol} :نماد </p>
-        </div>
-        <div className="SingleCoin_price">
-          <span>قیمت متوسط: {roundPrice}</span>
-          <span className="price_change">
-            (24h)تغییر قیمت :
-            <span
-              className="price_change--num"
-              style={
-                percent_change_24h > 0
-                  ? { color: "#2BC36F" }
-                  : { color: "#F63B45" }
-              }
-            >
-              {percent_change_24h}
+      <Link exact to={`/singlecoin/${id}`}>
+        <div className="SingleCoin">
+          <div className="SingleCoin_name">
+            <p>{name}</p>
+            <span> رنک : {rank}</span>
+            <p>{symbol} :نماد </p>
+          </div>
+          <div className="SingleCoin_price">
+            <span>قیمت متوسط: {roundPrice}</span>
+            <span className="price_change">
+              (24h)تغییر قیمت :
+              <span
+                className="price_change--num"
+                style={
+                  percent_change_24h > 0
+                    ? { color: "#2BC36F" }
+                    : { color: "#F63B45" }
+                }
+              >
+                {percent_change_24h}
+              </span>
             </span>
-          </span>
-          <span>$حجم بازار : {` ${roundVolume_24h}  `} </span>
+            <span>$حجم بازار : {` ${roundVolume_24h}  `} </span>
+          </div>
+          <div className=" SingleCoin_tradingview">
+            <TradingViewWidget symbol={`COINBASE:${symbol}USD`} autosize />
+          </div>
+          <div className="SingleCoin_trash" onClick={handleTrashClick}>
+            <FontAwesomeIcon icon={faTrash} className="trash_icon" />
+          </div>
         </div>
-        <div className=" SingleCoin_tradingview">
-          <TradingViewWidget symbol={`COINBASE:${symbol}USD`} autosize />
-        </div>
-        <div className="SingleCoin_trash" onClick={handleTrashClick}>
-          <FontAwesomeIcon icon={faTrash} className="trash_icon" />
-        </div>
-      </div>
+      </Link>
     </CSSTransition>
   );
 }
