@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { customizePrice } from "../../helpers/customizePrice";
 import { CSSTransition } from "react-transition-group";
@@ -6,6 +6,7 @@ import TradingViewWidget from "react-tradingview-widget";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import "./SingleCoin.scss";
+import { SelectedCoinsContext } from "../../contexts/SelectedCoinsContext";
 
 function SingleCoin({ name, rank, symbol, quotes, id, removeCoin }) {
   const [toggle, SetToggle] = useState(true);
@@ -13,7 +14,12 @@ function SingleCoin({ name, rank, symbol, quotes, id, removeCoin }) {
   const roundPrice = parseFloat(price).toFixed(2);
   const roundVolume_24h = customizePrice(parseInt(volume_24h));
 
+  const color = useContext(SelectedCoinsContext);
+  console.log(color);
+
   const handleTrashClick = (e) => {
+    e.stopPropagation();
+    console.log("trash clicked");
     SetToggle(false);
     setTimeout(() => {
       removeCoin(id);
@@ -21,38 +27,40 @@ function SingleCoin({ name, rank, symbol, quotes, id, removeCoin }) {
   };
   return (
     <CSSTransition in={toggle} timeout={1000} classNames="sample">
-      <Link exact to={`/singlecoin/${id}`}>
-        <div className="SingleCoin">
-          <div className="SingleCoin_name">
-            <p>{name}</p>
-            <span> رنک : {rank}</span>
-            <p>{symbol} :نماد </p>
-          </div>
-          <div className="SingleCoin_price">
-            <span>قیمت متوسط: {roundPrice}</span>
-            <span className="price_change">
-              (24h)تغییر قیمت :
-              <span
-                className="price_change--num"
-                style={
-                  percent_change_24h > 0
-                    ? { color: "#2BC36F" }
-                    : { color: "#F63B45" }
-                }
-              >
-                {percent_change_24h}
+      <div className="SingleCoin_wrraper">
+        <Link exact to={`/singlecoin/${id}`}>
+          <div className="SingleCoin">
+            <div className="SingleCoin_name">
+              <p>{name}</p>
+              <span> رنک : {rank}</span>
+              <p>{symbol} :نماد </p>
+            </div>
+            <div className="SingleCoin_price">
+              <span>قیمت متوسط: {roundPrice}</span>
+              <span className="price_change">
+                (24h)تغییر قیمت :
+                <span
+                  className="price_change--num"
+                  style={
+                    percent_change_24h > 0
+                      ? { color: "#2BC36F" }
+                      : { color: "#F63B45" }
+                  }
+                >
+                  {percent_change_24h}
+                </span>
               </span>
-            </span>
-            <span>$حجم بازار : {` ${roundVolume_24h}  `} </span>
+              <span>$حجم بازار : {` ${roundVolume_24h}  `} </span>
+            </div>
+            <div className=" SingleCoin_tradingview">
+              <TradingViewWidget symbol={`COINBASE:${symbol}USD`} autosize />
+            </div>
           </div>
-          <div className=" SingleCoin_tradingview">
-            <TradingViewWidget symbol={`COINBASE:${symbol}USD`} autosize />
-          </div>
-          <div className="SingleCoin_trash" onClick={handleTrashClick}>
-            <FontAwesomeIcon icon={faTrash} className="trash_icon" />
-          </div>
+        </Link>
+        <div className="SingleCoin_wrraper_trash" onClick={handleTrashClick}>
+          <FontAwesomeIcon icon={faTrash} className="trash_icon" />
         </div>
-      </Link>
+      </div>
     </CSSTransition>
   );
 }
