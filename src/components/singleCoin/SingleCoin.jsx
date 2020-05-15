@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import { customizePrice } from "../../helpers/customizePrice";
+import customizePrice from "../../helpers/customizePrice";
 import { CSSTransition } from "react-transition-group";
 import TradingViewWidget from "react-tradingview-widget";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,12 +14,8 @@ function SingleCoin({ name, rank, symbol, quotes, id, removeCoin }) {
   const roundPrice = parseFloat(price).toFixed(2);
   const roundVolume_24h = customizePrice(parseInt(volume_24h));
 
-  const color = useContext(SelectedCoinsContext);
-  console.log(color);
-
   const handleTrashClick = (e) => {
     e.stopPropagation();
-    console.log("trash clicked");
     SetToggle(false);
     setTimeout(() => {
       removeCoin(id);

@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import SelectedCoins from "./selectedCoins";
 import CryptoAutoComplete from "./cryptoAutoComplete";
+import { SelectedCoinsContext } from "../../contexts/SelectedCoinsContext";
 import axios from "axios";
 import "./SelectCrypto.scss";
 
 function SelectCrypto() {
   const [coins, setCoins] = useState([]);
-  const [selectedCoins, setSelectedCoins] = useState([]);
+  // const [selectedCoins, setSelectedCoins] = useState([]);
+
+  const { selectedCoins, setSelectedCoins } = useContext(SelectedCoinsContext);
 
   const addCoin = async (id) => {
     if (selectedCoins.every((coin) => coin.id !== id)) {

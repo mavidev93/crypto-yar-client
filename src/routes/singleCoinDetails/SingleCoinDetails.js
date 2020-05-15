@@ -1,9 +1,12 @@
 import React from "react";
+import Navbar from "../../components/navbar";
+import CoinDetails from "../../components/coinDetails";
 
-function SingleCoinDetails() {
+function SingleCoinDetails(props) {
   return (
     <>
-      <h1>here is a single coin live</h1>
+      <Navbar />
+      <CoinDetails {...props} />
     </>
   );
 }

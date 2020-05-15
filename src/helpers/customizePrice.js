@@ -11,4 +11,4 @@ const customizePrice = (num) => {
   return price;
 };
 
-export { customizePrice };
+export default customizePrice;

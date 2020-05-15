@@ -15,7 +15,7 @@ function App() {
           <Route
             exact
             path="/singlecoin/:id"
-            render={() => <SingleCoinDetails />}
+            render={(params) => <SingleCoinDetails {...params} />}
           />
         </Switch>
       </div>
