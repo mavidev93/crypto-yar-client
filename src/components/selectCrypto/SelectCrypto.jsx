@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import SelectedCoins from "./selectedCoins";
 import CryptoAutoComplete from "./cryptoAutoComplete";
 import { SelectedCoinsContext } from "../../contexts/SelectedCoinsContext";
+import { getCoinById } from "../../helpers/Api";
 import axios from "axios";
 import "./SelectCrypto.scss";
 
@@ -13,9 +14,7 @@ function SelectCrypto() {
 
   const addCoin = async (id) => {
     if (selectedCoins.every((coin) => coin.id !== id)) {
-      const newCoin = (
-        await axios.get(`https://api.coinpaprika.com/v1/tickers/${id}`)
-      ).data;
+      const newCoin = await getCoinById(id);
       setSelectedCoins([...selectedCoins, newCoin]);
     } else {
       console.log("this crypto alredy selected");
