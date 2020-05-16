@@ -16,43 +16,61 @@ function CoinDetails(props) {
 
   coin || getCoinById(id).then((coin) => setCoin(coin));
   console.log(coin);
+
+  const setPercentStyle = (percent) =>
+    percent > 0 ? { color: "#2BC36F" } : { color: "#F63B45" };
+
   const createCoinPallete = () => {
-    const { name, rank, symbol, quotes } = coin;
-    const { price, volume_24h, percent_change_24h } = quotes.USD;
+    const { name, rank, symbol, quotes, total_supply } = coin;
+    const {
+      price,
+      volume_24h,
+      percent_change_24h,
+      percent_change_30d,
+    } = quotes.USD;
+
     const roundPrice = parseFloat(price).toFixed(2);
     const roundVolume_24h = customizePrice(parseInt(volume_24h));
+    const totalCoins = customizePrice(parseInt(total_supply));
     return (
-      <div className="SingleCoin">
-        {console.log("pallet called")}
-        <div className="SingleCoin_name">
-          <p>{name}</p>
-          <span> رنک : {rank}</span>
-          <p>{symbol} :نماد </p>
-        </div>
-        <div className="SingleCoin_price">
-          <span>قیمت متوسط: {roundPrice}</span>
-          <span className="price_change">
-            (24h)تغییر قیمت :
-            <span
-              className="price_change--num"
-              style={
-                percent_change_24h > 0
-                  ? { color: "#2BC36F" }
-                  : { color: "#F63B45" }
-              }
-            >
-              {percent_change_24h}
+      <div className="CoinDetails">
+        <div className="CoinDetails_text">
+          <div className="CoinDetails_name">
+            <p>{name}</p>
+            <span> رنک : {rank}</span>
+            <p>{symbol} :نماد </p>
+          </div>
+          <div className="CoinDetails_price">
+            <span>قیمت : {roundPrice}</span>
+            <span className="day_change price_change">
+              (24h)تغییر قیمت :
+              <span
+                className="price_change--num"
+                style={setPercentStyle(percent_change_24h)}
+              >
+                {percent_change_24h}
+              </span>
             </span>
-          </span>
-          <span>$حجم بازار : {` ${roundVolume_24h}  `} </span>
+            <span className="price_change">
+              تغییر ماهانه :
+              <span
+                className="price_change--num"
+                style={setPercentStyle(percent_change_30d)}
+              >{`${percent_change_30d}`}</span>
+            </span>
+          </div>
+          <div className="CoinDetails_volume">
+            <span>$حجم بازار : {` ${roundVolume_24h}  `} </span>
+            <span>تعداد در گردش:{`${totalCoins}`}</span>
+          </div>
         </div>
-        <div className=" SingleCoin_tradingview">
+        <div className=" CoinDetails_tradingview">
           <TradingViewWidget symbol={`COINBASE:${symbol}USD`} autosize />
         </div>
       </div>
     );
   };
 
-  return <div className="CoinDetails">{coin && createCoinPallete()}</div>;
+  return <>{coin && createCoinPallete()}</>;
 }
 export default CoinDetails;
