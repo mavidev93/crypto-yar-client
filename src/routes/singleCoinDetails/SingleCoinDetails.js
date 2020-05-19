@@ -5,6 +5,7 @@ import CoinDetails from "../../components/coinDetails";
 function SingleCoinDetails(props) {
   return (
     <>
+      {console.log("singleCoin details rerenderd")}
       <Navbar />
       <CoinDetails {...props} />
     </>

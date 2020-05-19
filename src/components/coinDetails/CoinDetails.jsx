@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { SelectedCoinsContext } from "../../contexts/SelectedCoinsContext";
 import customizePrice from "../../helpers/customizePrice";
 
@@ -7,28 +7,47 @@ import TradingViewWidget from "react-tradingview-widget";
 import "./CoinDetails.scss";
 
 function CoinDetails(props) {
+  console.log(props);
   const { match } = props;
   const { id } = match.params;
-  const { selectedCoins } = useContext(SelectedCoinsContext);
-  const [coin, setCoin] = useState(
-    selectedCoins.find((coin) => coin.id === id)
-  );
+  const { selectedCoins, setSelectedCoins } = useContext(SelectedCoinsContext);
+  // const [coin, setCoin] = useState(
+  //   selectedCoins.find((coin) => {
+  //     console.log("use state called");
+  //     return coin.id === id;
+  //   })
+  // );
 
-  coin || getCoinById(id).then((coin) => setCoin(coin));
-  console.log(coin);
+  selectedCoins || getCoinById(id).then((coin) => setSelectedCoins(coin));
+  // if (!selectedCoins) {
+  // async ()=>{
+  //  data = await getCoinById(id)
+
+  //       console.log("data resolved", data);
+
+  //       setSelectedCoins(data);
+  //     }
+  // }
+
+  // useEffect(() => {
+  //   console.log(selectedCoins);
+  //   console.log("selectedCoin changed");
+  // }, []);
+
+  console.log(selectedCoins);
 
   const setPercentStyle = (percent) =>
     percent > 0 ? { color: "#2BC36F" } : { color: "#F63B45" };
 
   const createCoinPallete = () => {
-    const { name, rank, symbol, quotes, total_supply } = coin;
+    const { name, rank, symbol, quotes, total_supply } = selectedCoins;
     const {
       price,
       volume_24h,
       percent_change_24h,
       percent_change_30d,
     } = quotes.USD;
-
+    console.log("pallete is readey");
     const roundPrice = parseFloat(price).toFixed(2);
     const roundVolume_24h = customizePrice(parseInt(volume_24h));
     const totalCoins = customizePrice(parseInt(total_supply));
@@ -71,6 +90,6 @@ function CoinDetails(props) {
     );
   };
 
-  return <>{coin && createCoinPallete()}</>;
+  return <>{selectedCoins && createCoinPallete()}</>;
 }
 export default CoinDetails;
