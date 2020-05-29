@@ -4,24 +4,30 @@ import apis from "../api";
 import Home from "../routes/home";
 import SingleCoinDetails from "../routes/singleCoinDetails";
 import { SelectedCoinsProvider } from "../contexts/SelectedCoinsContext";
+import { LoggedInProvider } from "../contexts/LoggedInContext";
+
 import "../assets/sass/global.scss";
 import "./App.scss";
 
 function App() {
-  apis.insertCrypto("ne   dfdfxabar");
   return (
-    <SelectedCoinsProvider>
-      <div className="App">
-        <Switch>
-          <Route exact path="/" render={() => <Home />} />
-          <Route
-            exact
-            path="/singlecoin/:id"
-            render={(params) => <SingleCoinDetails {...params} />}
-          />
-        </Switch>
-      </div>
-    </SelectedCoinsProvider>
+    <LoggedInProvider>
+      <SelectedCoinsProvider>
+        <div className="App">
+          <Switch>
+            <Route exact path="/" render={() => <Home />} />
+            <Route
+              exact
+              path="/singlecoin/:id"
+              render={(params) => <SingleCoinDetails {...params} />}
+            />
+            {/* <Route exact path="/a">
+            <button onClick={() => window.open("/auth/google")}></button>
+          </Route> */}
+          </Switch>
+        </div>
+      </SelectedCoinsProvider>
+    </LoggedInProvider>
   );
 }
 

@@ -2,8 +2,9 @@ import React, { useState, useEffect, useContext } from "react";
 import SelectedCoins from "./selectedCoins";
 import CryptoAutoComplete from "./cryptoAutoComplete";
 import { SelectedCoinsContext } from "../../contexts/SelectedCoinsContext";
+import { LoggedInContext } from "../../contexts/LoggedInContext";
+import apis from "../../api";
 import { getCoinById } from "../../helpers/Api";
-import axios from "axios";
 import "./SelectCrypto.scss";
 
 function SelectCrypto() {
@@ -11,11 +12,29 @@ function SelectCrypto() {
   // const [selectedCoins, setSelectedCoins] = useState([]);
 
   const { selectedCoins, setSelectedCoins } = useContext(SelectedCoinsContext);
+  const { user } = useContext(LoggedInContext);
+  useEffect(() => {
+    if (user.loggedIn) {
+      async function initialUserCoins() {
+        const userCoins = (await apis.getSelectedCoins()).data;
+        setSelectedCoins(userCoins);
+      }
+      initialUserCoins();
+    }
+  }, [user.loggedIn]);
 
   const addCoin = async (id) => {
     if (selectedCoins.every((coin) => coin.id !== id)) {
       const newCoin = await getCoinById(id);
-      setSelectedCoins([...selectedCoins, newCoin]);
+      await apis
+        .insertCrypto(newCoin)
+        .catch((e) => console.log("can't insert crypto"));
+      if (user.loggedIn) {
+        const userCoins = (await apis.getSelectedCoins()).data;
+        setSelectedCoins(userCoins);
+      } else {
+        setSelectedCoins([...selectedCoins, newCoin]);
+      }
     } else {
       console.log("this crypto alredy selected");
     }
@@ -29,20 +48,13 @@ function SelectCrypto() {
   };
 
   const searchCoins = async (val) => {
-    const currencies = (
-      await axios.get(`https://api.coinpaprika.com/v1/search/?q=${val}`)
-    ).data.currencies;
+    let currencies = (await apis.getSearchList(val)).data;
+    if (currencies.hasOwnProperty("currencies")) {
+      currencies = currencies.currencies;
+    }
+
     setCoins(currencies);
   };
-
-  useEffect(() => {
-    async function fetchData() {
-      const data = (await axios.get("https://api.coinpaprika.com/v1/coins"))
-        .data;
-      setCoins(data.slice(0, 50));
-    }
-    fetchData();
-  }, []);
 
   return (
     <div className="SelectCrypto">

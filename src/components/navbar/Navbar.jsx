@@ -8,7 +8,7 @@ function Navbar() {
       <h1 className="Navbar_title">کریپتو یار</h1>
       <ul className="Navbar_list">
         <li>
-          <NavLink exact to="/">
+          <NavLink exact={true} to="/">
             لیست انتخابی
           </NavLink>
         </li>

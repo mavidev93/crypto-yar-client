@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import "./CryptoAutoComplete.scss";
@@ -10,7 +10,6 @@ function CryptoAutoComplete({ addCoin, searchCoins, coins }) {
     e.preventDefault();
     console.log("input change");
     setValue(e.target.value);
-    searchCoins(value);
   };
 
   const handleChange = (e, coin) => {
@@ -20,6 +19,12 @@ function CryptoAutoComplete({ addCoin, searchCoins, coins }) {
       addCoin(id);
     }
   };
+
+  useEffect(() => {
+    console.log(value);
+    const val = value ? value : "empty";
+    searchCoins(val);
+  }, [value]);
 
   return (
     <div className="CryptoAutoComplete">

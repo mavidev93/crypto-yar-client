@@ -24,7 +24,7 @@ function SingleCoin({ name, rank, symbol, quotes, id, removeCoin }) {
   return (
     <CSSTransition in={toggle} timeout={1000} classNames="sample">
       <div className="SingleCoin_wrraper">
-        <Link exact to={`/singlecoin/${id}`}>
+        <Link exact="true" to={`/singlecoin/${id}`}>
           <div className="SingleCoin">
             <div className="SingleCoin_name">
               <p>{name}</p>
