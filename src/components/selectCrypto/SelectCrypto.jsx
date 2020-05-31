@@ -9,10 +9,9 @@ import "./SelectCrypto.scss";
 
 function SelectCrypto() {
   const [coins, setCoins] = useState([]);
-  // const [selectedCoins, setSelectedCoins] = useState([]);
-
   const { selectedCoins, setSelectedCoins } = useContext(SelectedCoinsContext);
   const { user } = useContext(LoggedInContext);
+
   useEffect(() => {
     if (user.loggedIn) {
       async function initialUserCoins() {
@@ -40,11 +39,17 @@ function SelectCrypto() {
     }
   };
 
-  const removeCoin = (id) => {
-    const newCoins = [...selectedCoins];
-    const removeIndex = newCoins.findIndex((coin) => coin.id === id);
-    newCoins.splice(removeIndex, 1);
-    setSelectedCoins(newCoins);
+  const removeCoin = async (id) => {
+    if (user.loggedIn) {
+      await apis.removeCrypto(id);
+      const userCoins = (await apis.getSelectedCoins()).data;
+      setSelectedCoins(userCoins);
+    } else {
+      const newCoins = [...selectedCoins];
+      const removeIndex = newCoins.findIndex((coin) => coin.id === id);
+      newCoins.splice(removeIndex, 1);
+      setSelectedCoins(newCoins);
+    }
   };
 
   const searchCoins = async (val) => {

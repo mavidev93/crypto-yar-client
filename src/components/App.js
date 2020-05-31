@@ -21,9 +21,9 @@ function App() {
               path="/singlecoin/:id"
               render={(params) => <SingleCoinDetails {...params} />}
             />
-            {/* <Route exact path="/a">
-            <button onClick={() => window.open("/auth/google")}></button>
-          </Route> */}
+            {/* <Route exact path="/login">
+              <button onClick={() => window.open("/auth/google")}></button>
+            </Route> */}
           </Switch>
         </div>
       </SelectedCoinsProvider>

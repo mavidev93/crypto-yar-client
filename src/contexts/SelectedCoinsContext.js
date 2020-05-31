@@ -1,6 +1,6 @@
 import React from "react";
 import useSelectedCoins from "../hooks/useSelectedCoins";
-import axios from "axios";
+
 export const SelectedCoinsContext = React.createContext();
 
 export function SelectedCoinsProvider(props) {
