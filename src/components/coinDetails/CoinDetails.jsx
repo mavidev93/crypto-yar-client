@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { SelectedCoinsContext } from "../../contexts/SelectedCoinsContext";
 import customizePrice from "../../helpers/customizePrice";
 
@@ -7,50 +7,27 @@ import TradingViewWidget from "react-tradingview-widget";
 import "./CoinDetails.scss";
 
 function CoinDetails(props) {
-  console.log(props);
   const { match } = props;
   const { id } = match.params;
   const { selectedCoins, setSelectedCoins } = useContext(SelectedCoinsContext);
-  // const [coin, setCoin] = useState(
-  //   selectedCoins.find((coin) => {
-  //     console.log("use state called");
-  //     return coin.id === id;
-  //   })
-  // );
-
-  selectedCoins || getCoinById(id).then((coin) => setSelectedCoins(coin));
-  // if (!selectedCoins) {
-  // async ()=>{
-  //  data = await getCoinById(id)
-
-  //       console.log("data resolved", data);
-
-  //       setSelectedCoins(data);
-  //     }
-  // }
-
-  // useEffect(() => {
-  //   console.log(selectedCoins);
-  //   console.log("selectedCoin changed");
-  // }, []);
-
-  console.log(selectedCoins);
+  selectedCoins.length > 0 ||
+    getCoinById(id).then((coin) => setSelectedCoins([coin]));
 
   const setPercentStyle = (percent) =>
     percent > 0 ? { color: "#2BC36F" } : { color: "#F63B45" };
 
   const createCoinPallete = () => {
-    const { name, rank, symbol, quotes, total_supply } = selectedCoins;
+    const { name, rank, symbol, quotes, total_supply } = selectedCoins[0];
     const {
       price,
       volume_24h,
       percent_change_24h,
       percent_change_30d,
     } = quotes.USD;
-    console.log("pallete is readey");
     const roundPrice = parseFloat(price).toFixed(2);
     const roundVolume_24h = customizePrice(parseInt(volume_24h));
     const totalCoins = customizePrice(parseInt(total_supply));
+
     return (
       <div className="CoinDetails">
         <div className="CoinDetails_text">
@@ -90,6 +67,6 @@ function CoinDetails(props) {
     );
   };
 
-  return <>{selectedCoins && createCoinPallete()}</>;
+  return <>{selectedCoins.length > 0 && createCoinPallete()}</>;
 }
 export default CoinDetails;

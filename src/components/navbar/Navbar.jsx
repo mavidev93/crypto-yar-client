@@ -1,5 +1,9 @@
 import React, { useContext } from "react";
+import apis from "../../api";
 import { LoggedInContext } from "../../contexts/LoggedInContext";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSignInAlt } from "@fortawesome/free-solid-svg-icons";
 import Button from "@material-ui/core/Button";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import Grow from "@material-ui/core/Grow";
@@ -50,11 +54,14 @@ function Navbar() {
     setOpen((prevOpen) => !prevOpen);
   };
 
-  const handleClose = (event) => {
-    if (anchorRef.current && anchorRef.current.contains(event.target)) {
-      return;
-    }
+  const handleClose = async (event) => {
+    console.log("logout clicked");
+    if (event.target.id === "logout-btn") {
+      await apis.logout();
+      console.log("await after logout");
 
+      window.location.replace("http://localhost:3000/");
+    }
     setOpen(false);
   };
 
@@ -66,9 +73,12 @@ function Navbar() {
   }
 
   const prevOpen = React.useRef(open);
+
   React.useEffect(() => {
     if (prevOpen.current === true && open === false) {
-      anchorRef.current.focus();
+      if (anchorRef.current) {
+        anchorRef.current.focus();
+      }
     }
 
     prevOpen.current = open;
@@ -80,7 +90,7 @@ function Navbar() {
       <div className="Navbar_profile">
         {loggedIn ? (
           <div className={classes.root}>
-            <img src={profileImg} className="profile_img" />
+            <img src={profileImg} className="profile_img" alt="user " />
             <div>
               <Button
                 ref={anchorRef}
@@ -118,13 +128,14 @@ function Navbar() {
                             className={classes.menuItem}
                             onClick={handleClose}
                           >
-                            Acount
+                            Account
                           </MenuItem>
                           <MenuItem
                             className={classes.menuItem}
                             onClick={handleClose}
+                            id="logout-btn"
                           >
-                            Logout
+                            Log out
                           </MenuItem>
                         </MenuList>
                       </ClickAwayListener>
@@ -135,8 +146,15 @@ function Navbar() {
             </div>
           </div>
         ) : (
-          <button onClick={() => window.open("/auth/google", "_self")}>
-            Log In
+          <button
+            onClick={() => window.open("/auth/google", "_self")}
+            className="profile_login_btn"
+          >
+            <FontAwesomeIcon
+              icon={faSignInAlt}
+              className="singinalt_icon login_icon"
+            />
+            Log In / Sing Up
           </button>
         )}
       </div>

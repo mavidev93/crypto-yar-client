@@ -12,7 +12,6 @@ const LoggedInProvider = (props) => {
   useEffect(() => {
     async function fetchUser() {
       const newUser = (await apis.getUser()).data;
-      console.log(newUser);
       if (newUser) {
         setUser(newUser);
       }

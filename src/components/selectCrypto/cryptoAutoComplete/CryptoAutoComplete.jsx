@@ -21,7 +21,6 @@ function CryptoAutoComplete({ addCoin, searchCoins, coins }) {
   };
 
   useEffect(() => {
-    console.log(value);
     const val = value ? value : "empty";
     searchCoins(val);
   }, [value]);

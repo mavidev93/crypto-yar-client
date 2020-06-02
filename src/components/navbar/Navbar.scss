@@ -41,3 +41,18 @@
   display: flex;
   align-items: center;
 }
+
+.profile_login_btn {
+  background-color: $color-red;
+  border: none;
+  border-radius: 3px;
+  padding: 1rem 3rem;
+  color: white;
+  font-weight: bold;
+  font-size: 1.6rem;
+  outline: none;
+  cursor: pointer;
+}
+.login_icon {
+  margin-right: 1rem;
+}

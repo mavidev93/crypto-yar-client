@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import customizePrice from "../../helpers/customizePrice";
 import { CSSTransition } from "react-transition-group";
@@ -6,7 +6,6 @@ import TradingViewWidget from "react-tradingview-widget";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import "./SingleCoin.scss";
-import { SelectedCoinsContext } from "../../contexts/SelectedCoinsContext";
 
 function SingleCoin({ name, rank, symbol, quotes, id, removeCoin }) {
   const [toggle, SetToggle] = useState(true);

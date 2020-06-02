@@ -1,6 +1,5 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import apis from "../api";
 import Home from "../routes/home";
 import SingleCoinDetails from "../routes/singleCoinDetails";
 import { SelectedCoinsProvider } from "../contexts/SelectedCoinsContext";

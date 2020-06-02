@@ -2,14 +2,6 @@ import axios from "axios";
 
 const api = axios;
 
-// const login = () => {
-//   console.log("login called");
-//   api
-//     .get("/auth/google")
-//     .then(() => console.log("welcome to log in page"))
-//     .catch((e) => console.log("unauthinticated"));
-// };
-
 const insertCrypto = (coin) =>
   api
     .post("/crypto/selected", { coin })
@@ -29,12 +21,17 @@ const getUser = () => {
   return api.get("/auth/user");
 };
 
+const logout = () => {
+  return api.get("/auth/logout");
+};
+
 const apis = {
   insertCrypto,
   getSearchList,
   getUser,
   getSelectedCoins,
   removeCrypto,
+  logout,
 };
 
 export default apis;
