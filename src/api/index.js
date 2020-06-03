@@ -2,11 +2,7 @@ import axios from "axios";
 
 const api = axios;
 
-const insertCrypto = (coin) =>
-  api
-    .post("/crypto/selected", { coin })
-    .then(() => console.log("sucssedful"))
-    .catch((e) => console.log("something is wrong"));
+const insertCrypto = (coinId) => api.post("/crypto/selected", { coinId });
 const getSearchList = (searchInput = "empty") =>
   api.get(`/crypto/search/${searchInput}`);
 const getSelectedCoins = () => {

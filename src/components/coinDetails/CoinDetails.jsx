@@ -1,7 +1,5 @@
-import React, { useContext } from "react";
-import { SelectedCoinsContext } from "../../contexts/SelectedCoinsContext";
+import React, { useEffect, useState } from "react";
 import customizePrice from "../../helpers/customizePrice";
-
 import { getCoinById } from "../../helpers/Api";
 import TradingViewWidget from "react-tradingview-widget";
 import "./CoinDetails.scss";
@@ -9,15 +7,20 @@ import "./CoinDetails.scss";
 function CoinDetails(props) {
   const { match } = props;
   const { id } = match.params;
-  const { selectedCoins, setSelectedCoins } = useContext(SelectedCoinsContext);
-  selectedCoins.length > 0 ||
-    getCoinById(id).then((coin) => setSelectedCoins([coin]));
+  const [coin, setCoin] = useState(undefined);
 
+  useEffect(() => {
+    async function getSelectedCoin() {
+      const selectedCoin = await getCoinById(id);
+      setCoin(selectedCoin);
+    }
+    getSelectedCoin();
+  }, [id]);
   const setPercentStyle = (percent) =>
     percent > 0 ? { color: "#2BC36F" } : { color: "#F63B45" };
 
   const createCoinPallete = () => {
-    const { name, rank, symbol, quotes, total_supply } = selectedCoins[0];
+    const { name, rank, symbol, quotes, total_supply } = coin;
     const {
       price,
       volume_24h,
@@ -67,6 +70,6 @@ function CoinDetails(props) {
     );
   };
 
-  return <>{selectedCoins.length > 0 && createCoinPallete()}</>;
+  return <>{coin && createCoinPallete()}</>;
 }
 export default CoinDetails;

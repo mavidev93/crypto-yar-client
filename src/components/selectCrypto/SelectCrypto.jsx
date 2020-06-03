@@ -24,14 +24,14 @@ function SelectCrypto() {
 
   const addCoin = async (id) => {
     if (selectedCoins.every((coin) => coin.id !== id)) {
-      const newCoin = await getCoinById(id);
-      await apis
-        .insertCrypto(newCoin)
-        .catch((e) => console.log("can't insert crypto"));
+      // const newCoin = await getCoinById(id);
+      const newCoin = (await apis.insertCrypto(id)).data;
+
       if (user.loggedIn) {
         const userCoins = (await apis.getSelectedCoins()).data;
         setSelectedCoins(userCoins);
       } else {
+        console.log("user is not logged in");
         setSelectedCoins([...selectedCoins, newCoin]);
       }
     } else {
