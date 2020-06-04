@@ -50,16 +50,13 @@ function Navbar() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
-  console.log("nav rerenderd");
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
 
   const handleClose = async (event) => {
-    console.log("logout clicked");
     if (event.target.id === "logout-btn") {
       await apis.logout();
-      console.log("await after logout");
 
       history.push("/");
       window.location.reload();

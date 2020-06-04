@@ -8,7 +8,6 @@ function CryptoAutoComplete({ addCoin, searchCoins, coins }) {
 
   const handleInputchange = (e) => {
     e.preventDefault();
-    console.log("input change");
     setValue(e.target.value);
   };
 
