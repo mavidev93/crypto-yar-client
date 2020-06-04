@@ -4,7 +4,6 @@ import CryptoAutoComplete from "./cryptoAutoComplete";
 import { SelectedCoinsContext } from "../../contexts/SelectedCoinsContext";
 import { LoggedInContext } from "../../contexts/LoggedInContext";
 import apis from "../../api";
-import { getCoinById } from "../../helpers/Api";
 import "./SelectCrypto.scss";
 
 function SelectCrypto() {
@@ -24,7 +23,6 @@ function SelectCrypto() {
 
   const addCoin = async (id) => {
     if (selectedCoins.every((coin) => coin.id !== id)) {
-      // const newCoin = await getCoinById(id);
       const newCoin = (await apis.insertCrypto(id)).data;
 
       if (user.loggedIn) {

@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { Link, useHistory } from "react-router-dom";
 import apis from "../../api";
 import { LoggedInContext } from "../../contexts/LoggedInContext";
 
@@ -45,11 +46,11 @@ const useStyles = makeStyles((theme) => ({
 function Navbar() {
   const { user } = useContext(LoggedInContext);
   const { loggedIn, username, profileImg } = user;
-
+  let history = useHistory();
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
-
+  console.log("nav rerenderd");
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
@@ -60,7 +61,8 @@ function Navbar() {
       await apis.logout();
       console.log("await after logout");
 
-      window.location.replace("http://localhost:3000/");
+      history.push("/");
+      window.location.reload();
     }
     setOpen(false);
   };
@@ -86,7 +88,9 @@ function Navbar() {
 
   return (
     <div className="Navbar">
-      <h1 className="Navbar_title">کریپتو یار</h1>
+      <Link to="/">
+        <h1 className="Navbar_title">کریپتو یار</h1>
+      </Link>
       <div className="Navbar_profile">
         {loggedIn ? (
           <div className={classes.root}>

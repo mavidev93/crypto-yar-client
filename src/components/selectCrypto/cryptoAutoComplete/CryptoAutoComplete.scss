@@ -1,6 +1,8 @@
 .CryptoAutoComplete {
   position: relative;
   z-index: 10;
+  max-width: 60rem;
+  padding: 1rem;
 
   input {
     font-size: 16px;

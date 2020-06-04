@@ -8,7 +8,7 @@ const LoggedInProvider = (props) => {
     userName: undefined,
     userImg: undefined,
   });
-
+  console.log("login context is run");
   useEffect(() => {
     async function fetchUser() {
       const newUser = (await apis.getUser()).data;

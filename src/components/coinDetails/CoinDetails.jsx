@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import customizePrice from "../../helpers/customizePrice";
-import { getCoinById } from "../../helpers/Api";
+import apis from "../../api";
 import TradingViewWidget from "react-tradingview-widget";
 import "./CoinDetails.scss";
 
@@ -11,7 +11,8 @@ function CoinDetails(props) {
 
   useEffect(() => {
     async function getSelectedCoin() {
-      const selectedCoin = await getCoinById(id);
+      const selectedCoin = (await apis.getSingleCoin(id)).data;
+
       setCoin(selectedCoin);
     }
     getSelectedCoin();

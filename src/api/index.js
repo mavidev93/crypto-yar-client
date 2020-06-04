@@ -21,6 +21,10 @@ const logout = () => {
   return api.get("/auth/logout");
 };
 
+const getSingleCoin = (id) => {
+  return api.get("/crypto/getsinglecoin", { params: { id } });
+};
+getSingleCoin("btc-bitcoin");
 const apis = {
   insertCrypto,
   getSearchList,
@@ -28,6 +32,7 @@ const apis = {
   getSelectedCoins,
   removeCrypto,
   logout,
+  getSingleCoin,
 };
 
 export default apis;
