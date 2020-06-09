@@ -57,7 +57,6 @@ function Navbar() {
   const handleClose = async (event) => {
     if (event.target.id === "logout-btn") {
       await apis.logout();
-
       history.push("/");
       window.location.reload();
     }

@@ -2,11 +2,11 @@
 .CoinDetails {
   grid-column: center-start/center-end;
   grid-row: 2/3;
-  height: 45rem;
+  height: 72vh;
   background-color: $color-primary;
   display: flex;
   flex-direction: column;
-  margin-top: 3rem;
+  margin-top: 3.5rem;
   justify-content: space-between;
   color: $color-white;
   font-size: 1.6rem;
